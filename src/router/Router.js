@@ -1,6 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import LoginPage from '@/pages/LoginPage.vue'
-import NoPageFound from '@/pages/NoPageFound.vue'
 
 const routes = [
     { path: '/', component: LoginPage },
@@ -9,7 +8,7 @@ const routes = [
     { path: '/profile', component: () => import('@/pages/UserProfile.vue') },
     { path: '/pokedex', component: () => import('@/pages/UserPokedex.vue') }, 
     { path: '/contact', component: () => import('@/pages/ContactPage.vue') },
-    { path: '/:pathMatch(.*)*', component: NoPageFound} 
+    { path: '/:pathMatch(.*)*', component: () => import('@/pages/NoPageFound.vue')} 
 
 ]
 
