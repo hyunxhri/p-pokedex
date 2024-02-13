@@ -42,7 +42,7 @@ export default {
       <p v-if="!isTitleValid" class="content__form--error-message">Por favor ingresa un título de al menos 4 carácteres.</p>
       <input class="content__form--input" type="email" v-model="email" placeholder="Email" required>
       <p v-if="!isEmailValid" class="content__form--error-message">El correo electrónico debe terminar en .com o .es.</p>
-      <textarea class="content__form--textarea" cols="30" rows="5" v-model="message" placeholder="Message" required></textarea>
+      <textarea class="content__form--textarea" cols="30" rows="3" v-model="message" placeholder="Message" required></textarea>
       <p v-if="!isMessageValid" class="content__form--error-message">Por favor ingresa un mensaje de al menos 20 caracteres.</p>
       <button class="content__form--button">Send</button>
       <p v-if="formSubmitted" class="content__form--success-message">Formulario enviado</p>
@@ -67,28 +67,28 @@ export default {
     }
 
     & .content__form{
-      width: 50vh;
+      width: auto;
       margin: 0 auto;
 
       & .content__form--input, .content__form--textarea, .content__form--button {
-        width: 40vh;
+        width: 40vw;
         display: block;
         margin: 1vh auto;
         font-family: "Kameron";
         padding: 2vh;
         background: #d9d9d9;
-        font-size: 2vh;
+        font-size: 2.5vh;
         border: 2px solid #000;
       }
 
       & .content__form--button{
-        width: 44.5vh;
+        width: 42vw;
       }
 
       & .content__form--error-message, .content__form--success-message {
       color: red;
-      width: 40vh;
-      font-size: 1.3vh;
+      width: 40vw;
+      font-size: 2vh;
       border: 1px solid red;
       padding: 1vh 2vh;
       margin: 1vh auto;

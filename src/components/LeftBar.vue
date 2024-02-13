@@ -37,6 +37,9 @@ export default {
             color: rgba(0, 0, 0, 0.5);
             font-size: 5vw;
             margin-top: 50vh;
+            display:flex;
+            justify-content: center;
+            align-items: center;
             cursor: pointer;
 
             &:hover {

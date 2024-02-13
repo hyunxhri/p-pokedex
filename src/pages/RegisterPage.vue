@@ -97,4 +97,37 @@ export default {
             }
         }
     }
+
+    @media screen and (max-width: 920px){
+        .register-container {
+            & .register-container__img {
+            width: 40vh;
+            }
+
+            & .register-container__form {
+                & .register-container__form--input {
+                    width: 40vh;
+                }
+
+                & .register-container__form--button {
+                    width: 42vh;
+                }
+            }
+        }
+
+        .connection-bar {
+            width:25vw;
+
+            & .connection-bar__button {
+                width: 12vw;
+                height: 12vw;
+                font-size: 8vw;
+            }
+
+            & .connection-bar__lights-decoration .light {
+                width: 4vw;
+                height: 2vw;
+            }
+        }
+    }
 </style>

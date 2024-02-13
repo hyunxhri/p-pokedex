@@ -29,20 +29,20 @@ export default {
         flex-direction: column;
         position:relative;
 
-        && .login-container__img {
+        & .login-container__img {
             width: 30vw;
             opacity:30%;
             position:absolute;
             z-index:0;
         }
 
-        && .login-container__form {
+        & .login-container__form {
             display:flex;
             flex-direction: column;
             align-items: center;
             z-index:1;
 
-            && .login-container__form--input {
+            & .login-container__form--input {
                 font-family: 'Kameron';
                 text-align: center;
                 color:#000;
@@ -80,6 +80,39 @@ export default {
                     text-decoration: none;
                     font-style: italic;
                 }
+            }
+        }
+    }
+
+    @media screen and (max-width: 920px){
+        .login-container {
+            & .login-container__img {
+            width: 40vh;
+            }
+
+            & .login-container__form {
+                & .login-container__form--input {
+                    width: 40vh;
+                }
+
+                & .login-container__form--button {
+                    width: 42vh;
+                }
+            }
+        }
+
+        .connection-bar {
+            width:25vw;
+
+            & .connection-bar__button {
+                width: 12vw;
+                height: 12vw;
+                font-size: 8vw;
+            }
+
+            & .connection-bar__lights-decoration .light {
+                width: 4vw;
+                height: 2vw;
             }
         }
     }
