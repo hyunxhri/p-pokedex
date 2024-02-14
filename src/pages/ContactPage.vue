@@ -86,10 +86,10 @@ export default {
       }
 
       & .content__form--error-message, .content__form--success-message {
-      color: red;
+      color: #d9d9d9;
       width: 40vw;
       font-size: 2vh;
-      border: 1px solid red;
+      border: 1px solid #FF321D;
       padding: 1vh 2vh;
       margin: 1vh auto;
       text-align:center;
