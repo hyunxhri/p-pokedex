@@ -27,6 +27,8 @@ export default {
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        transition: ease-in all 0.2s;
+
 
         & .connection-bar__button {
             width: 8vw;
@@ -62,6 +64,14 @@ export default {
                 border-bottom: 2px solid #0C0C0D;
                 border-right: 2px solid #0C0C0D;
             }
+        }
+    }
+
+    @media screen and (max-width: 320px){
+        .connection-bar {
+            display:none;
+            transition: ease-in all 0.2s;
+
         }
     }
 

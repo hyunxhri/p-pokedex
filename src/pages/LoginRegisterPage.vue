@@ -5,8 +5,14 @@ export default {
     data(){
         return {
             username: '',
+            genre: '',
             password: '',
-            isLoginPage: true
+            confirmPassword: '',
+            isLoginPage: true,
+            isGenreValid: true,
+            isUserValid: true,
+            isPasswordValid: true,
+            isConfirmPasswordValid: true
         }
     },
     components: {
@@ -19,6 +25,15 @@ export default {
         } else {
             this.isLoginPage = true
         }
+    }, 
+    submitForm() {
+    this.isUserValid = this.username.trim().length >= 4
+    this.isGenreValid = this.genre != ''
+      this.isPasswordValid = this.password.trim().length >= 6
+      this.isConfirmPasswordValid = this.confirmPassword === this.password && this.confirmPassword.length > 0
+      if (this.isUserValid && this.isGenreValid && this.isPasswordValid && this.isConfirmPasswordValid) {
+        this.formSubmitted = true
+      }
     }
   }
 }
@@ -27,28 +42,34 @@ export default {
         <LeftBar/>
         <section class="login-register-container">
             <img class="login-register-container__img" src="../assets/imgs/pokeball-login-register.png">
-            <form v-if="isLoginPage" class="login-register-container__form">
+            <!-- If login --> 
+            <form v-if="isLoginPage" class="login-register-container__form" @submit.prevent="submitForm">
                 <input class="login-register-container__form--input" type="text" name="username" placeholder="Username">
                 <input class="login-register-container__form--input" type="password" name="password" placeholder="Password">
                 <button class="login-register-container__form--button">Log in</button>
                 <p class="login-register-container__form--text">Don't have an account? <a href="#" @click="changeForm">Register</a></p>
             </form>
-            <form v-else class="login-register-container__form">
-                <input class="login-register-container__form--input" type="text" name="username" placeholder="Username">
-                <select class="login-register-container__form--select" id="genre" name="genre">
+            <!-- If register -->
+            <form v-else class="login-register-container__form" @submit.prevent="submitForm">
+                <input class="login-register-container__form--input" v-model="username" type="text" name="username" placeholder="Username">
+                <p v-if="!isUserValid" class="login-register-container__form--error-message">Username needs at least 4 characters.</p>
+                <select class="login-register-container__form--select" v-model="genre" id="genre" name="genre">
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                 </select>
-                <input class="login-register-container__form--input" type="password" name="password" placeholder="Password">
-                <input class="login-register-container__form--input" type="password" name="confirm-password" placeholder="Confirm password">
+                <p v-if="!isGenreValid" class="login-register-container__form--error-message">Select an genre.</p>
+                <input class="login-register-container__form--input" v-model="password" type="password" name="password" placeholder="Password">
+                <p v-if="!isPasswordValid" class="login-register-container__form--error-message">Password needs at least 6 characters.</p>
+                <input class="login-register-container__form--input" v-model="confirmPassword" type="password" name="confirmPassword" placeholder="Confirm password">
+                <p v-if="!isConfirmPasswordValid" class="login-register-container__form--error-message">Confirm password must match password.</p>
                 <button class="login-register-container__form--button">Register</button>
                 <p class="login-register-container__form--text">Already have an account? <a href="#" @click="changeForm">Log in</a></p>
             </form>
         </section>
 </template>
-<style lang="css">
+<style lang="css" scoped>
     .login-register-container {
-        width: 86vw;
+        width: 100vw;
         background: #FF321D;
         display:flex;
         justify-content: center;
@@ -121,27 +142,46 @@ export default {
                     font-style: italic;
                 }
             }
+
+            & .login-register-container__form--error-message {
+                background: #000;
+                color: #fff;
+                width: 25vw;
+                padding: 1vw;
+                margin: 0vh;
+                border-radius: 5px;
+                font-family: 'Kameron';
+                font-size: 2.5vh;
+                text-transform: uppercase;
+                text-align: center;
+                transition: ease-in all .2s;                    
+            }
         }
     }
 
     @media screen and (max-width: 920px){
-        .login-register-container {
+        .login-register-container {            
             & .login-register-container__img {
             width: 40vh;
-            transition: ease-in all .5;
+            transition: ease-in all .2s;
 
             }
 
             & .login-register-container__form {
                 & .login-register-container__form--input {
                     width: 40vh;
-                    transition: ease-in all .5;
+                    transition: ease-in all .2s;
                 }
 
                 & .login-register-container__form--button, .login-register-container__form--select {
                     width: 42vh;
-                    transition: ease-in all .5;                    
+                    transition: ease-in all .2s;                    
                 }
+                
+                & .login-register-container__form--error-message{
+                width:40vh;
+                transition: ease-in all .2s;    
+            }
             }
         }
 
@@ -160,4 +200,25 @@ export default {
             }
         }
     }
+
+    @media screen and (min-width: 920px) and (max-width: 1200px){
+        .login-register-container {
+            & .login-register-container__form {
+                & .login-register-container__form--input {
+                    width: 60vh;
+                    transition: ease-in all .2s;
+                }
+
+                & .login-register-container__form--button, .login-register-container__form--select {
+                    width: 63.5vh;
+                    transition: ease-in all .2s;                    
+                }
+                
+                & .login-register-container__form--error-message{
+                width:60vh;
+                transition: ease-in all .2s; 
+            }
+        }
+    }
+}
 </style>
