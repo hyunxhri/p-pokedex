@@ -66,7 +66,7 @@ export default {
         }
     }
 
-    @media screen and (max-width: 320px){
+    @media screen and (max-width: 425px){
         .connection-bar {
             display:none;
 

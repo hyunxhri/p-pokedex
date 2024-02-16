@@ -35,10 +35,10 @@ export default {
     <LeftBar/>
     <article class="screen">
         <section class="screen__capture-pokemon">
-            <img class="screen__img" :src="pokemon ? this.pokemon.img : '#' ">
+            <img class="screen__img" :src="pokemon ? this.pokemon.img : '@/assets/imgs/bulbasaur.png' ">
             <div class="screen__text-buttons">
                 <p class="screen__text-buttons--text">
-                    {{ pokemon ? this.pokemon.name : 'Loading...' }} savage just appear! <br/>
+                    {{ pokemon ? this.pokemon.name : 'Bulbasaur' }} savage just appear! <br/>
                 </p>
                 <button class="screen__text-buttons--button">Capture</button>
                 <button class="screen__text-buttons--button" @click="fetchNewPokemon">Search other</button>
@@ -120,22 +120,55 @@ export default {
             }
     }
 
-    @media screen and (max-width: 935px){
+    @media screen and (max-width: 425px){
         .screen {
+            width: 100vw;
 
             & .screen__capture-pokemon {
+                width: 70vw;
+                height: 70vh;
 
                 & .screen__text-buttons{
-                    padding: 0;
+                    padding: 0 5vw;
+
+                    & .screen__text-buttons--text{
+                        margin:1vh;
+                        font-size: 1em;
+                    }
 
                     & .screen__text-buttons--button{
-                        margin: 15px 0vw;
-                        width: 27vw;
+                        width:35vw;
+                        margin: 2vw 0vw;
+                        padding: 1vw 0;
+                        width: 100%;
+                        font-size: 1em;
                     }
                 }
             }
+
+            & .screen__buttons--button{
+                width: 32vw;
+                padding: 2vw;
+                font-size: 1.2em;
+            }
         }
 
+
+    }
+
+    @media screen and (max-width: 320px){
+
+        .screen {
+            & .screen__capture-pokemon {
+                & .screen__text-buttons{
+                    padding: 0;
+                }
+            }
+
+            & .screen__buttons--button{
+                width: 40vw;
+            }
+        }
 
     }
 

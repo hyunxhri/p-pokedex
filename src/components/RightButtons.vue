@@ -53,4 +53,11 @@ export default {
             }
         }
     }
+
+    @media screen and (max-width: 425px){
+        .buttons-bar {
+            display:none;
+
+        }
+    }
 </style>

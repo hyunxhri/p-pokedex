@@ -1,7 +1,7 @@
 <script>
 import LeftBar from '@/components/LeftBar.vue'
-import router from '@/router/Router'
 import axios from 'axios'
+import { useAuthStore } from '@/stores/authStore'
 
 export default {
     data(){
@@ -39,17 +39,8 @@ export default {
             this.isLoginPage = true
         }
     }, 
-    async login () {
-        await axios.post("http://localhost:8080/api/users/login", {
-            username: this.username,
-            password: this.password
-        }).then(response => {
-            localStorage.setItem('token', response.data.token);
-            console.log(response)
-            router.push({path: '/explore'})
-        }).catch(error => {
-            console.log(error)
-        })
+    login () {
+        useAuthStore().logIn(this.username, this.password)
     },
     async register(){
         this.isUserValid = this.username.trim().length >= 4
