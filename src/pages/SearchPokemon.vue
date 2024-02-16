@@ -13,7 +13,8 @@ export default {
     data(){
         return{
             isButtonDisabled: true,
-            pokemon: null
+            pokemon: null,
+            isCaptured: ''
         }
     },
     methods: {
@@ -22,6 +23,18 @@ export default {
                 this.pokemon = await fetchRandomPokemon()
             } catch (error) {
                 console.error('Error fetching random Pokemon:', error)
+            }
+        },
+        tryToCapture() {
+            const randomNumber = Math.floor(Math.random() * 100) + 1;
+            if (randomNumber < 50) {
+                this.isCaptured = "¡Enhorabuena, lo has capturado!"
+            } else {
+                this.isCaptured = "Oh, no, ¡el pokemon ha huido!"
+                setTimeout(() => {
+                    this.isCaptured = '',
+                    this.fetchNewPokemon()
+                }, 2000)
             }
         }
     },
@@ -36,11 +49,12 @@ export default {
     <article class="screen">
         <section class="screen__capture-pokemon">
             <img class="screen__img" :src="pokemon ? this.pokemon.img : '@/assets/imgs/bulbasaur.png' ">
+            <p v-if="isCaptured" class="screen__captured-text">{{ isCaptured }}</p>
             <div class="screen__text-buttons">
                 <p class="screen__text-buttons--text">
-                    {{ pokemon ? this.pokemon.name : 'Bulbasaur' }} savage just appear! <br/>
+                    A wild {{ pokemon ? this.pokemon.name : 'Bulbasaur' }} just appeared! <br/>
                 </p>
-                <button class="screen__text-buttons--button">Capture</button>
+                <button class="screen__text-buttons--button" @click="tryToCapture">Capture</button>
                 <button class="screen__text-buttons--button" @click="fetchNewPokemon">Search other</button>
             </div>
         </section>
@@ -63,6 +77,14 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: center;
+
+        & .screen__captured-text{
+            font-family: 'Kameron';
+            font-weight: 600;
+            margin: 5px;
+            position: absolute;
+            top: 55vh;
+        }
 
         & .screen__capture-pokemon{
             background: #416E6D;
@@ -95,7 +117,7 @@ export default {
                 }
 
                 & .screen__text-buttons--button{
-                    width:20vw;
+                    width:22vw;
                 }
 
             }
@@ -166,11 +188,50 @@ export default {
             }
 
             & .screen__buttons--button{
-                width: 40vw;
+                width: 33vw;
             }
         }
 
     }
+
+    @media screen and (max-width: 847px){
+        .screen {
+
+            & .screen__capture-pokemon {
+
+                & .screen__text-buttons{
+                    margin-top: -20px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    & .screen__text-buttons--text{
+                        font-size: 1.3em;
+                    }
+
+                    & .screen__text-buttons--button{
+                        width: 46vw;
+                        margin: 5px;
+                    }
+                }
+            }
+        }
+
+    @media screen and (min-width: 425px) and(max-width: 600px){
+        .screen {
+
+            & .screen__capture-pokemon {
+                width: 53vw;
+                height:65vh;
+
+                & .screen__text-buttons{
+                    padding: 2px;
+                }
+            }
+        }
+
+    }
+}
 
 
 </style>

@@ -11,13 +11,19 @@ export default {
 </script>
 <template>
     <LeftBar/>
-    <article class="content"></article>
+    <article class="screen"></article>
     <RightButtons/>
 </template>
 
 <style lang="css">
-    .content {
+    .screen {
         width: 69vw;
         border: 5vh solid #FF321D;
+    }
+
+    @media screen and (max-width: 425px){
+        .screen {
+            width: 100vw;
+        }
     }
 </style>

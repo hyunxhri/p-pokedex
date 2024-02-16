@@ -2,6 +2,12 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 export default {
+    props: {
+        isDisabled: {
+        type: Boolean,
+        default: false
+        }
+    },
     components: {
     FontAwesomeIcon
   }
@@ -10,10 +16,10 @@ export default {
 <template lang="">
     <aside class="connection-bar">
         <div class="connection-bar__lights-decoration">
-            <div class="light"></div>
-            <div class="light"></div>
+            <div class="light" :class="{ 'disabled': isDisabled }"></div>
+            <div class="light" :class="{ 'disabled': isDisabled }"></div>
         </div>
-        <button class="connection-bar__button"><font-awesome-icon icon="fa-solid fa-power-off" /></button>
+        <button class="connection-bar__button" :class="{ 'disabled': isDisabled }" :disabled="isDisabled"><font-awesome-icon icon="fa-solid fa-power-off" /></button>
     </aside>
 </template>
 <style lang="css">
@@ -32,7 +38,7 @@ export default {
         & .connection-bar__button {
             width: 8vw;
             height: 8vw;
-            background: #D9D9D9;
+            background: #00A3FF;
             border: 2px solid #0C0C0D;
             border-radius: 50%;
             color: rgba(0, 0, 0, 0.5);
@@ -43,9 +49,14 @@ export default {
             align-items: center;
             cursor: pointer;
 
-            &:hover {
+            &:not(.disabled):hover {
                 color: rgba(0, 0, 0, 0.8);
             }
+
+            &.disabled {
+                    background: #D9D9D9;
+                    cursor: not-allowed;
+                }
         }
 
         & .connection-bar__lights-decoration {
@@ -57,11 +68,15 @@ export default {
             & .light{
                 width: 3vw;
                 height: 1vw;
-                background: #d6d6d6;
+                background: #00FF29;
                 margin-bottom: 10px;
                 border-top: 2px solid #0C0C0D;
                 border-bottom: 2px solid #0C0C0D;
                 border-right: 2px solid #0C0C0D;
+
+                &.disabled {
+                    background: #D9D9D9;
+                }
             }
         }
     }

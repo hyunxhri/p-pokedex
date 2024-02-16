@@ -15,7 +15,8 @@ export default {
             isUserValid: true,
             isPasswordValid: true,
             isConfirmPasswordValid: true,
-            formSubmitted: false
+            formSubmitted: false,
+            isLeftBarDisabled: true
         }
     },
     components: {
@@ -71,7 +72,7 @@ export default {
 }
 </script>
 <template>
-        <LeftBar/>
+        <LeftBar :is-disabled="isLeftBarDisabled"/>
         <section class="auth-container">
             <img class="auth-container__img" src="../assets/imgs/pokeball-login-register.png">
             <!-- If login --> 
