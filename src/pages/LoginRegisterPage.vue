@@ -1,18 +1,21 @@
 <script>
 import LeftBar from '@/components/LeftBar.vue'
+import router from '@/router/Router'
+import axios from 'axios'
 
 export default {
     data(){
         return {
             username: '',
-            genre: '',
+            gender: '',
             password: '',
             confirmPassword: '',
             isLoginPage: true,
-            isGenreValid: true,
+            isGenderValid: true,
             isUserValid: true,
             isPasswordValid: true,
-            isConfirmPasswordValid: true
+            isConfirmPasswordValid: true,
+            formSubmitted: false
         }
     },
     components: {
@@ -20,55 +23,95 @@ export default {
     },
     methods: {
     changeForm() {
+        this.username= ''
+        this.gender= ''
+        this.password= ''
+        this.confirmPassword= ''
+        this.isGenderValid = true
+        this.isUserValid = true
+        this.isPasswordValid = true
+        this.isConfirmPasswordValid = true
+        this.formSubmitted = false
+
         if(this.isLoginPage){
             this.isLoginPage = false
         } else {
             this.isLoginPage = true
         }
     }, 
+    async login () {
+        await axios.post("http://localhost:8080/api/users/login", {
+            username: this.username,
+            password: this.password
+        }).then(response => {
+            localStorage.setItem('token', response.data.token);
+            console.log(response)
+            router.push({path: '/explore'})
+        }).catch(error => {
+            console.log(error)
+        })
+    },
+    async register(){
+        this.isUserValid = this.username.trim().length >= 4
+        this.isGenderValid = this.gender != ''
+        this.isPasswordValid = this.password.trim().length >= 6
+        this.isConfirmPasswordValid = this.confirmPassword === this.password && this.confirmPassword.length > 0
+        if (this.isUserValid && this.isGenderValid && this.isPasswordValid && this.isConfirmPasswordValid) {
+            await axios.post("http://localhost:8080/api/users", {
+            username: this.username,
+            gender: this.gender,
+            password: this.password
+            }).then(response => {
+            this.formSubmitted = true
+            setTimeout(() => {
+                this.changeForm()
+            }, 2000)
+            console.log(response)
+            }).catch(error => {
+            console.log(error)
+            })
+            
+        }
+    },
     submitForm() {
-    this.isUserValid = this.username.trim().length >= 4
-    this.isGenreValid = this.genre != ''
-      this.isPasswordValid = this.password.trim().length >= 6
-      this.isConfirmPasswordValid = this.confirmPassword === this.password && this.confirmPassword.length > 0
-      if (this.isUserValid && this.isGenreValid && this.isPasswordValid && this.isConfirmPasswordValid) {
-        this.formSubmitted = true
-      }
+        this.isLoginPage ? this.login() : this.register()
     }
   }
 }
 </script>
 <template>
         <LeftBar/>
-        <section class="login-register-container">
-            <img class="login-register-container__img" src="../assets/imgs/pokeball-login-register.png">
+        <section class="auth-container">
+            <img class="auth-container__img" src="../assets/imgs/pokeball-login-register.png">
             <!-- If login --> 
-            <form v-if="isLoginPage" class="login-register-container__form" @submit.prevent="submitForm">
-                <input class="login-register-container__form--input" type="text" name="username" placeholder="Username">
-                <input class="login-register-container__form--input" type="password" name="password" placeholder="Password">
-                <button class="login-register-container__form--button">Log in</button>
-                <p class="login-register-container__form--text">Don't have an account? <a href="#" @click="changeForm">Register</a></p>
+            <form v-if="isLoginPage" class="auth-container__form" @submit.prevent="submitForm">
+                <input class="auth-container__form--input" v-model="username" type="text" name="username" placeholder="Username">
+                <input class="auth-container__form--input" v-model="password" type="password" name="password" placeholder="Password">
+                <button class="auth-container__form--button">Log in</button>
+                <p class="auth-container__form--text">Don't have an account? <a href="#" @click="changeForm">Register</a></p>
             </form>
             <!-- If register -->
-            <form v-else class="login-register-container__form" @submit.prevent="submitForm">
-                <input class="login-register-container__form--input" v-model="username" type="text" name="username" placeholder="Username">
-                <p v-if="!isUserValid" class="login-register-container__form--error-message">Username needs at least 4 characters.</p>
-                <select class="login-register-container__form--select" v-model="genre" id="genre" name="genre">
+            <form v-else class="auth-container__form" @submit.prevent="submitForm">
+                <input class="auth-container__form--input" v-model="username" type="text" name="username" placeholder="Username">
+                <p v-if="!isUserValid" class="auth-container__form--error-message">Username needs at least 4 characters.</p>
+                <select class="auth-container__form--select" v-model="gender" id="gender" name="gender">
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                 </select>
-                <p v-if="!isGenreValid" class="login-register-container__form--error-message">Select an genre.</p>
-                <input class="login-register-container__form--input" v-model="password" type="password" name="password" placeholder="Password">
-                <p v-if="!isPasswordValid" class="login-register-container__form--error-message">Password needs at least 6 characters.</p>
-                <input class="login-register-container__form--input" v-model="confirmPassword" type="password" name="confirmPassword" placeholder="Confirm password">
-                <p v-if="!isConfirmPasswordValid" class="login-register-container__form--error-message">Confirm password must match password.</p>
-                <button class="login-register-container__form--button">Register</button>
-                <p class="login-register-container__form--text">Already have an account? <a href="#" @click="changeForm">Log in</a></p>
+                <p v-if="!isGenderValid" class="auth-container__form--error-message">Select a gender.</p>
+                <input class="auth-container__form--input" v-model="password" type="password" name="password" placeholder="Password">
+                <p v-if="!isPasswordValid" class="auth-container__form--error-message">Password needs at least 6 characters.</p>
+                <input class="auth-container__form--input" v-model="confirmPassword" type="password" name="confirmPassword" placeholder="Confirm password">
+                <p v-if="!isConfirmPasswordValid" class="auth-container__form--error-message">Confirm password must match password.</p>
+                <button class="auth-container__form--button">Register</button>
+                <p class="auth-container__form--text">Already have an account? <a href="#" @click="changeForm">Log in</a></p>
+                <p v-if="formSubmitted" class="auth-container__form--success-message">You've been registered.</p>
+
             </form>
         </section>
 </template>
 <style lang="css" scoped>
-    .login-register-container {
+    .auth-container {
         width: 100vw;
         background: #FF321D;
         display:flex;
@@ -77,7 +120,7 @@ export default {
         flex-direction: column;
         position:relative;
 
-        & .login-register-container__img {
+        & .auth-container__img {
             width: 30vw;
             opacity:30%;
             position:absolute;
@@ -86,17 +129,17 @@ export default {
 
         }
 
-        & .login-register-container__form {
+        & .auth-container__form {
             display:flex;
             flex-direction: column;
             align-items: center;
             z-index:1;
             
-            & .login-register-container__form--input {
+            & .auth-container__form--input, .auth-container__form--button, .auth-container__form--select {
                 font-family: 'Kameron';
                 text-align: center;
                 color:#000;
-                width: 25vw;
+                width: 30vw;
                 height: 7vh;
                 margin: 1vh 0;
                 border: 1px solid #000;
@@ -108,30 +151,15 @@ export default {
 
             }
 
-            & .login-register-container__form--button, .login-register-container__form--select {
-                font-family: 'Kameron';
+            & .auth-container__form--button {
                 color:#D9D9D9;
-                width: 27vw;
-                height: 8vh;
-                margin: 1vh 0;
                 border: 1px solid #D9D9D9;
                 background: #000;
-                border-radius: 5px;
-                padding: 0 1vw;
-                font-size: 1.2em;
                 cursor: pointer;
-                transition: ease-in all .2s;
-
             }
 
-            & .login-register-container__form--select{
-                text-align:center;
-                color: #000;
-                border: 1px solid #000;
-                background: #D9D9D9;
-            }
 
-            & .login-register-container__form--text {
+            & .auth-container__form--text {
                 font-family: 'Kameron';
                 font-size: 1.2em;
                 margin: 1vh 0;
@@ -143,10 +171,10 @@ export default {
                 }
             }
 
-            & .login-register-container__form--error-message {
+            & .auth-container__form--error-message, .auth-container__form--success-message {
                 background: #000;
                 color: #fff;
-                width: 25vw;
+                width: 30vw;
                 padding: 1vw;
                 margin: 0vh;
                 border-radius: 5px;
@@ -156,29 +184,29 @@ export default {
                 text-align: center;
                 transition: ease-in all .2s;                    
             }
+
+            & .auth-container__form--success-message {
+                background: green;
+                color: #fff;
+            }
         }
     }
 
     @media screen and (max-width: 920px){
-        .login-register-container {            
-            & .login-register-container__img {
+        .auth-container {            
+            & .auth-container__img {
             width: 40vh;
             transition: ease-in all .2s;
 
             }
 
-            & .login-register-container__form {
-                & .login-register-container__form--input {
+            & .auth-container__form {
+                & .auth-container__form--input, .auth-container__form--button, .auth-container__form--select {
                     width: 40vh;
                     transition: ease-in all .2s;
                 }
-
-                & .login-register-container__form--button, .login-register-container__form--select {
-                    width: 42vh;
-                    transition: ease-in all .2s;                    
-                }
                 
-                & .login-register-container__form--error-message{
+                & .auth-container__form--error-message, .auth-container__form--success-message{
                 width:40vh;
                 transition: ease-in all .2s;    
             }
@@ -202,19 +230,14 @@ export default {
     }
 
     @media screen and (min-width: 920px) and (max-width: 1200px){
-        .login-register-container {
-            & .login-register-container__form {
-                & .login-register-container__form--input {
+        .auth-container {
+            & .auth-container__form {
+                & .auth-container__form--input, .auth-container__form--button, .auth-container__form--select {
                     width: 60vh;
                     transition: ease-in all .2s;
                 }
-
-                & .login-register-container__form--button, .login-register-container__form--select {
-                    width: 63.5vh;
-                    transition: ease-in all .2s;                    
-                }
                 
-                & .login-register-container__form--error-message{
+                & .auth-container__form--error-message, .auth-container__form--success-message{
                 width:60vh;
                 transition: ease-in all .2s; 
             }

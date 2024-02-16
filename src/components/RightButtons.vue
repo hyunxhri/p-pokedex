@@ -26,6 +26,7 @@ export default {
 </template>
 <style lang="css">
     .buttons-bar{
+        width: 17vw;
         height: inherit;
         margin-left: auto;
 

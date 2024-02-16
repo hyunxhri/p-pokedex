@@ -17,7 +17,7 @@ export default {
 
 <style lang="css">
     .content {
-        width: 65vw;
+        width: 69vw;
         border: 5vh solid #FF321D;
     }
 </style>

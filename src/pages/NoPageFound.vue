@@ -1,12 +1,14 @@
 <script>
 import LeftBar from '@/components/LeftBar.vue'
 import RightButtons from '@/components/RightButtons.vue'
+import { RouterLink } from 'vue-router';
 
 export default {
     components: {
-        LeftBar,
-        RightButtons,
-    },
+    LeftBar,
+    RightButtons,
+    RouterLink
+},
     data() {
         return {
             isButtonDisabled: true,
@@ -21,7 +23,10 @@ export default {
         <div class="content__text-container">
             <h1 class="content__text-container--title">404</h1>
             <h2 class="content__text-container--subtitle">Page Not Found</h2>
-            <button class="content__text-container--button">Back to pokedex</button>
+            <RouterLink to="/pokedex">
+                <!-- TO DO : SI NO ESTÁ LOGEADO ENTONCES BACK TO LOG IN -->
+                <button class="content__text-container--button">Back to pokedex</button>
+            </RouterLink>
         </div>
     </article>
     <RightButtons :is-disabled="isButtonDisabled"/>
@@ -29,7 +34,7 @@ export default {
 
 <style lang="css">
     .content {
-        width: 65vw;
+        width: 69vw;
         border: 5vh solid #FF321D;
         font-family: 'Kameron';
         text-transform: uppercase;
@@ -74,6 +79,10 @@ export default {
                 color: #FF321D;
                 text-align: center;
                 margin: 0 0 2vw 0;
+            }
+
+            & a {
+                text-decoration: none;
             }
 
             & .content__text-container--button {

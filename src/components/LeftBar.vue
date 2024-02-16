@@ -27,7 +27,6 @@ export default {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        transition: ease-in all 0.2s;
 
 
         & .connection-bar__button {
@@ -70,7 +69,6 @@ export default {
     @media screen and (max-width: 320px){
         .connection-bar {
             display:none;
-            transition: ease-in all 0.2s;
 
         }
     }
