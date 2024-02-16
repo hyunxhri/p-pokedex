@@ -29,6 +29,10 @@ export default {
             const randomNumber = Math.floor(Math.random() * 100) + 1;
             if (randomNumber < 50) {
                 this.isCaptured = "¡Enhorabuena, lo has capturado!"
+                setTimeout(() => {
+                    this.isCaptured = '',
+                    this.fetchNewPokemon()
+                }, 2000)
             } else {
                 this.isCaptured = "Oh, no, ¡el pokemon ha huido!"
                 setTimeout(() => {
