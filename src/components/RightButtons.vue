@@ -16,10 +16,10 @@ export default {
 <template>
     <aside class="buttons-bar">
         <!-- Apply disabled class if the button is disabled -->
-        <button class="buttons-bar__button" :class="{ 'disabled': isDisabled }" :disabled="isDisabled">
+        <button class="buttons-bar__button" aria-label="next" :class="{ 'disabled': isDisabled }" :disabled="isDisabled">
             <font-awesome-icon icon="fa-solid fa-caret-right" />
         </button>
-        <button class="buttons-bar__button" :class="{ 'disabled': isDisabled }" :disabled="isDisabled">
+        <button class="buttons-bar__button" aria-label="back" :class="{ 'disabled': isDisabled }" :disabled="isDisabled">
             <font-awesome-icon icon="fa-solid fa-caret-left" />
         </button>
     </aside>

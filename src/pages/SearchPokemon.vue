@@ -52,7 +52,7 @@ export default {
     <LeftBar/>
     <article class="screen">
         <section class="screen__capture-pokemon">
-            <img class="screen__img" :src="pokemon ? this.pokemon.img : '@/assets/imgs/bulbasaur.png' ">
+            <img class="screen__img" :src="pokemon ? this.pokemon.img : '@/assets/imgs/bulbasaur.png' " alt="pokemon_img">
             <p v-if="isCaptured" class="screen__captured-text">{{ isCaptured }}</p>
             <div class="screen__text-buttons">
                 <p class="screen__text-buttons--text">

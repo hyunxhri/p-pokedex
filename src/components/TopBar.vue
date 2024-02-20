@@ -15,7 +15,7 @@ export default {
 </script>
 <template>
     <div id="top-bar">
-        <button class="top-bar__button" :class="{ 'disabled': isDisabled }" :disabled="isDisabled">
+        <button class="top-bar__button" aria-label="dropdown" :class="{ 'disabled': isDisabled }" :disabled="isDisabled">
             <font-awesome-icon icon="fa-solid fa-caret-down" />
         </button>
     </div>

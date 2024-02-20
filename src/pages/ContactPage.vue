@@ -38,11 +38,11 @@ export default {
   <article class="content">
     <h1 class="content__title">Contact us!</h1> 
     <form class="content__form" @submit.prevent="submitForm" action="mailto:sbulmar842@g.educaand.es">
-      <input class="content__form--input" type="text" v-model="title" placeholder="Title" required> 
+      <input class="content__form--input" type="text" v-model="title" placeholder="Title" aria-label="title" required> 
       <p v-if="!isTitleValid" class="content__form--error-message">Por favor ingresa un título de al menos 4 carácteres.</p>
-      <input class="content__form--input" type="email" v-model="email" placeholder="Email" required>
+      <input class="content__form--input" type="email" v-model="email" placeholder="Email" aria-label="email" required>
       <p v-if="!isEmailValid" class="content__form--error-message">El correo electrónico debe terminar en .com o .es.</p>
-      <textarea class="content__form--textarea" cols="30" rows="3" v-model="message" placeholder="Message" required></textarea>
+      <textarea class="content__form--textarea" cols="30" rows="3" v-model="message" placeholder="Message" aria-label="message" required></textarea>
       <p v-if="!isMessageValid" class="content__form--error-message">Por favor ingresa un mensaje de al menos 20 caracteres.</p>
       <button class="content__form--button">Send</button>
       <p v-if="formSubmitted" class="content__form--success-message">Formulario enviado</p>
@@ -54,7 +54,7 @@ export default {
 
 <style lang="css">
 .content{
-    width:65vw;
+    width:69vw;
     border:5vh solid #FF321D;
 
     & .content__title{ 
@@ -79,10 +79,6 @@ export default {
         background: #d9d9d9;
         font-size: 2.5vh;
         border: 2px solid #000;
-      }
-
-      & .content__form--button{
-        width: 42vw;
       }
 
       & .content__form--error-message, .content__form--success-message {

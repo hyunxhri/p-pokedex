@@ -74,28 +74,28 @@ export default {
 <template>
         <LeftBar :is-disabled="isLeftBarDisabled"/>
         <section class="auth-container">
-            <img class="auth-container__img" src="../assets/imgs/pokeball-login-register.png">
+            <img class="auth-container__img" src="../assets/imgs/pokeball-login-register.png" alt="pokeball_img">
             <!-- If login --> 
             <form v-if="isLoginPage" class="auth-container__form" @submit.prevent="submitForm">
-                <input class="auth-container__form--input" v-model="username" type="text" name="username" placeholder="Username">
-                <input class="auth-container__form--input" v-model="password" type="password" name="password" placeholder="Password">
-                <button class="auth-container__form--button">Log in</button>
+                <input class="auth-container__form--input" v-model="username" type="text" name="username" placeholder="Username" aria-label="username">
+                <input class="auth-container__form--input" v-model="password" type="password" name="password" placeholder="Password" aria-label="password">
+                <button class="auth-container__form--button" aria-label="login">Log in</button>
                 <p class="auth-container__form--text">Don't have an account? <a href="#" @click="changeForm">Register</a></p>
             </form>
             <!-- If register -->
             <form v-else class="auth-container__form" @submit.prevent="submitForm">
-                <input class="auth-container__form--input" v-model="username" type="text" name="username" placeholder="Username">
+                <input class="auth-container__form--input" v-model="username" type="text" name="username" placeholder="Username" aria-label="username">
                 <p v-if="!isUserValid" class="auth-container__form--error-message">Username needs at least 4 characters.</p>
-                <select class="auth-container__form--select" v-model="gender" id="gender" name="gender">
+                <select class="auth-container__form--select" v-model="gender" id="gender" name="gender" aria-label="gender">
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                 </select>
                 <p v-if="!isGenderValid" class="auth-container__form--error-message">Select a gender.</p>
-                <input class="auth-container__form--input" v-model="password" type="password" name="password" placeholder="Password">
+                <input class="auth-container__form--input" v-model="password" type="password" name="password" placeholder="Password" aria-label="password">
                 <p v-if="!isPasswordValid" class="auth-container__form--error-message">Password needs at least 6 characters.</p>
-                <input class="auth-container__form--input" v-model="confirmPassword" type="password" name="confirmPassword" placeholder="Confirm password">
+                <input class="auth-container__form--input" v-model="confirmPassword" type="password" name="confirmPassword" placeholder="Confirm password" aria-label="confirm-password">
                 <p v-if="!isConfirmPasswordValid" class="auth-container__form--error-message">Confirm password must match password.</p>
-                <button class="auth-container__form--button">Register</button>
+                <button class="auth-container__form--button" aria-label="register">Register</button>
                 <p class="auth-container__form--text">Already have an account? <a href="#" @click="changeForm">Log in</a></p>
                 <p v-if="formSubmitted" class="auth-container__form--success-message">You've been registered.</p>
 

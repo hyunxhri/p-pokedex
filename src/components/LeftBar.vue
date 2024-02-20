@@ -1,4 +1,6 @@
 <script>
+import router from '@/router/Router'
+import { useAuthStore } from '@/stores/authStore'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 export default {
@@ -10,7 +12,13 @@ export default {
     },
     components: {
     FontAwesomeIcon
-  }
+    },
+    methods: {
+        logOut() {
+            useAuthStore().logOut()
+            router.push({ name: 'Login' })
+        }
+    }   
 }
 </script>
 <template lang="">
@@ -19,7 +27,9 @@ export default {
             <div class="light" :class="{ 'disabled': isDisabled }"></div>
             <div class="light" :class="{ 'disabled': isDisabled }"></div>
         </div>
-        <button class="connection-bar__button" :class="{ 'disabled': isDisabled }" :disabled="isDisabled"><font-awesome-icon icon="fa-solid fa-power-off" /></button>
+        <button class="connection-bar__button" aria-label="disconnect" :class="{ 'disabled': isDisabled }" :disabled="isDisabled" @click="logOut">
+            <font-awesome-icon icon="fa-solid fa-power-off" />
+        </button>
     </aside>
 </template>
 <style lang="css">
