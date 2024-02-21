@@ -10,16 +10,23 @@ export default {
     },
     components: {
     FontAwesomeIcon
-  }
+  }, methods: {
+        nextPage() {
+            this.$emit('next-page');
+        },
+        prevPage() {
+            this.$emit('prev-page');
+        }
+    }
 }
 </script>
 <template>
     <aside class="buttons-bar">
         <!-- Apply disabled class if the button is disabled -->
-        <button class="buttons-bar__button" aria-label="next" :class="{ 'disabled': isDisabled }" :disabled="isDisabled">
+        <button class="buttons-bar__button" @click="nextPage" aria-label="next" :class="{ 'disabled': isDisabled }" :disabled="isDisabled">
             <font-awesome-icon icon="fa-solid fa-caret-right" />
         </button>
-        <button class="buttons-bar__button" aria-label="back" :class="{ 'disabled': isDisabled }" :disabled="isDisabled">
+        <button class="buttons-bar__button" @click="prevPage" aria-label="back" :class="{ 'disabled': isDisabled }" :disabled="isDisabled">
             <font-awesome-icon icon="fa-solid fa-caret-left" />
         </button>
     </aside>
@@ -56,8 +63,38 @@ export default {
 
     @media screen and (max-width: 425px){
         .buttons-bar {
-            display:none;
+            width: 80vw;
+            height: 20vw;
+            display: flex;
+            flex-direction: row-reverse;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom:1vh;
+            margin: auto;
 
+            & .buttons-bar__button{
+                width: 40vw;
+                height: 10vh;
+                background: #0C0C0D;
+                border-radius: 11vw;
+                border: 1vh solid #FF321D;
+                color: #D9D9D9;
+                font-size: 10vw;
+                cursor: pointer;
+            }
+        }
+    }
+
+    @media screen and (max-width: 375px){
+        .buttons-bar {
+            bottom:3vh;
+        }
+    }
+
+    @media screen and (max-width: 320px){
+        .buttons-bar {
+            bottom:5vh;
         }
     }
 </style>
