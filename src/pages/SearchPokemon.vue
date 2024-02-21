@@ -198,7 +198,7 @@ export default {
 
     }
 
-    @media screen and (max-width: 847px){
+    @media screen and (max-width: 854px){
         .screen {
 
             & .screen__capture-pokemon {
@@ -221,7 +221,7 @@ export default {
             }
         }
 
-    @media screen and (min-width: 425px) and(max-width: 600px){
+    @media screen and (min-width: 426px) and (max-width: 600px){
         .screen {
 
             & .screen__capture-pokemon {
