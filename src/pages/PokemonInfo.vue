@@ -104,11 +104,20 @@ export default {
           
 
           & .screen__pokemonId, .screen__pokemonName {
-              text-align: center;
+              text-align: left;
               display: inline-block;
               font-size:1em;
-              color:white;
               margin:.5vw;
+          }
+
+          & .screen__pokemonId {
+            width: 7vw;
+            height: auto;
+            padding: 1vw;
+            background: #fff;
+            color: #000;
+            border-top-left-radius: 10px;
+            clip-path: polygon(0% 100%, 50% 100%, 100% 0%, 0% 0%);
           }
         }
 
