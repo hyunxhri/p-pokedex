@@ -7,6 +7,7 @@ const routes = [
     { path: '/explore', name: "explore", beforeEnter: [isAuthenticatedGuard], component: () => import('@/pages/SearchPokemon.vue') },
     { path: '/profile', name: "profile", beforeEnter: [isAuthenticatedGuard], component: () => import('@/pages/UserProfile.vue') },
     { path: '/pokedex', name: "pokedex", beforeEnter: [isAuthenticatedGuard], component: () => import('@/pages/UserPokedex.vue') }, 
+    { path: '/pokedex/:id', name: "pokemonInfo", beforeEnter: [isAuthenticatedGuard], component: () => import('@/pages/PokemonInfo.vue') }, 
     { path: '/contact', name: "contact", component: () => import('@/pages/ContactPage.vue') },
     { path: '/:pathMatch(.*)*', name:"error", component: () => import('@/pages/NoPageFound.vue')} 
 

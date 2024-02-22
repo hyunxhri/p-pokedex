@@ -74,7 +74,7 @@ export default {
     <RightButtons :is-disabled="isButtonDisabled"/>
 </template>
 
-<style lang="css">
+<style lang="css" scoped>
     .screen {
         width: 69vw;
         border: 5vh solid #FF321D;

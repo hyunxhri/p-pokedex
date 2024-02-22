@@ -35,6 +35,10 @@ export default {
                 this.currentPage--
                 await this.fetchAllPokemons()
             }
+        },
+        infoPokemon(id) {
+            console.log(id)
+            this.$router.push({ path: `/pokedex/${id}` })
         }
     }
 }
@@ -43,7 +47,7 @@ export default {
     <LeftBar/>
     <article class="screen">
         <ul class="screen__list">
-            <li v-for="pokemon in pokemons" :key="pokemon.id" class="screen__list--element">
+            <li v-for="pokemon in pokemons" :key="pokemon.pokemonId" class="screen__list--element" @click="infoPokemon(pokemon.pokemonId)">
                     <img class="screen__list--img" :src="pokemon.img" :alt="pokemon.name">
                     <p class="screen__list--name">{{ pokemon.name }}</p>
             </li>
@@ -52,7 +56,7 @@ export default {
     <RightButtons @next-page="fetchNextPage" @prev-page="fetchPrevPage"/>
 </template>
 
-<style lang="css">
+<style lang="css" scoped>
     .screen {
         width: 69vw;
         border: 5vh solid #FF321D;

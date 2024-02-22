@@ -15,7 +15,7 @@ export default {
     <RightButtons/>
 </template>
 
-<style lang="css">
+<style lang="css" scoped>
     .screen {
         width: 69vw;
         border: 5vh solid #FF321D;
