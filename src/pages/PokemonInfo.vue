@@ -44,6 +44,9 @@ export default {
       this.$router.push({ path: `/pokedex/${this.pokemonId}` })
       this.fetchPokemon()
     },
+    getPokemonTypeBackground() {
+      return `background-color: var(--${this.pokemon.type})`
+    }
   },
   components: { LeftBar, RightButtons },
 }
@@ -55,7 +58,7 @@ export default {
       <div class="screen__background">
         <section class="screen__infoPokemon">
           <h2 class="screen__pokemonId">{{ pokemonId }}</h2>
-          <h1 class="screen__pokemonName">{{ pokemon ? this.pokemon.name : '' }}</h1>
+          <h1 class="screen__pokemonName" :style="getPokemonTypeBackground()">{{ pokemon ? this.pokemon.name : '' }}</h1>
           <img class="screen__img" :src="pokemon ? this.pokemon.img : '@/assets/imgs/bulbasaur.png' " alt="pokemon_img">
           <ul class="screen__typeList">
             <li class="screen__typeList--type">{{ pokemon ? this.pokemon.type : '' }}</li>
@@ -102,12 +105,18 @@ export default {
           align-items: center;
           justify-content: space-around;
           
+          & .screen__infoPokemon{
+            width: 18vw;
+            height: 90%;
+            background:#07370F;
+            padding:1vw;
+            border-radius:10px;
 
-          & .screen__pokemonId, .screen__pokemonName {
+            & .screen__pokemonId, .screen__pokemonName {
               text-align: left;
+              font-family: "IBM Plex Mono";
               display: inline-block;
               font-size:1em;
-              margin:.5vw;
           }
 
           & .screen__pokemonId {
@@ -119,8 +128,32 @@ export default {
             border-top-left-radius: 10px;
             clip-path: polygon(0% 100%, 50% 100%, 100% 0%, 0% 0%);
           }
+
+          & .screen__pokemonName {
+            height: auto;
+            width: 12.5vw;
+            padding: 1vw;
+            text-transform: uppercase;
+            text-align: right;
+            color: #fff;
+            border-top-right-radius: 10px;
+            margin-left: -3.5vw;
+            clip-path: polygon(0% 100%, 20% 0%, 100% 0%, 100% 100%, 0% 100%);
+            text-shadow: 0px 2px 2px rgba(0,0,0,.75);
+          }
+
+          & .screen__img{
+            background: white;
+            margin: 0 auto;
+            width: 100%;
+            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+          }
         }
 
+          }
+
+          
         & .screen__buttons{
             width: 53vw;
             margin: 0 auto;

@@ -56,7 +56,7 @@ export default {
             <p v-if="isCaptured" class="screen__captured-text">{{ isCaptured }}</p>
             <div class="screen__text-buttons">
                 <p class="screen__text-buttons--text">
-                    A wild {{ pokemon ? this.pokemon.name : 'Bulbasaur' }} just appeared! <br/>
+                    A wild {{ pokemon ? this.pokemon.name : 'Loading...' }} just appeared! <br/>
                 </p>
                 <button class="screen__text-buttons--button" @click="tryToCapture">Capture</button>
                 <button class="screen__text-buttons--button" @click="fetchNewPokemon">Search other</button>
