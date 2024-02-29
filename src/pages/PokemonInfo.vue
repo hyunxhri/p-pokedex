@@ -9,6 +9,7 @@ export default {
     return {
       pokemonId: null,
       pokemon: null,
+      imgShiny : false,
     }
   },
   created() {
@@ -17,6 +18,7 @@ export default {
   },
   methods: {
     fetchPokemon() {
+      this.imgShiny = false
       fetchPokemonById(this.pokemonId)
         .then(response => {
           this.pokemon = response
@@ -45,7 +47,17 @@ export default {
       this.fetchPokemon()
     },
     getPokemonTypeBackground() {
-      return `background-color: var(--${this.pokemon.type})`
+      if(this.pokemon) {
+        return `background-color: var(--${this.pokemon.type})`
+      }
+    },
+    getPokemonType2Background(){
+      if(this.pokemon) {
+        return `background-color: var(--${this.pokemon.type2})`
+      }
+    },
+    changeImgToShiny(){
+      this.imgShiny ? this.imgShiny = false : this.imgShiny = true
     }
   },
   components: { LeftBar, RightButtons },
@@ -59,21 +71,21 @@ export default {
         <section class="screen__infoPokemon">
           <h2 class="screen__pokemonId">{{ pokemonId }}</h2>
           <h1 class="screen__pokemonName" :style="getPokemonTypeBackground()">{{ pokemon ? this.pokemon.name : '' }}</h1>
-          <img class="screen__img" :src="pokemon ? this.pokemon.img : '@/assets/imgs/bulbasaur.png' " alt="pokemon_img">
+          <img v-if="pokemon" class="screen__img" :src="imgShiny ? this.pokemon.imgShiny : this.pokemon.img" alt="pokemon_img">
           <ul class="screen__typeList">
-            <li class="screen__typeList--type">{{ pokemon ? this.pokemon.type : '' }}</li>
-            <li v-if="pokemon ? this.pokemon.type2 : ''" class="screen__typeList--type">{{ this.pokemon.type2 }}</li>
+            <li class="screen__typeList--type" :class="{ 'fullWidth': pokemon && !pokemon.type2 }" :style="getPokemonTypeBackground()">{{ pokemon ? this.pokemon.type : '' }}</li>
+            <li v-if="pokemon ? this.pokemon.type2 : ''" class="screen__typeList--type" :class="{ 'fullWidth': !pokemon.type2 }" :style="getPokemonType2Background()">{{ this.pokemon.type2 }}</li>
           </ul>
           <button class="screen__shinyButton" @click="changeImgToShiny">Shiny</button>
         </section>
 
         <ul class="screen__stadistics">
-          <li class="screen__stadistics--li">Hp {{ pokemon ? this.pokemon.hp : ''}}</li>
-          <li class="screen__stadistics--li">Attack {{ pokemon ? this.pokemon.attack : ''}}</li>
-          <li class="screen__stadistics--li">Defense {{ pokemon ? this.pokemon.defense : ''}}</li>
-          <li class="screen__stadistics--li">S-Attack {{ pokemon ? this.pokemon.sattack : ''}}</li>
-          <li class="screen__stadistics--li">S-Defense {{ pokemon ? this.pokemon.sdefense : ''}}</li>
-          <li class="screen__stadistics--li">Speed {{ pokemon ? this.pokemon.speed : ''}}</li>
+          <li class="screen__stadistics--li"><h3>Hp</h3> {{ pokemon ? this.pokemon.hp : ''}}</li>
+          <li class="screen__stadistics--li"><h3>Attack</h3> {{ pokemon ? this.pokemon.attack : ''}}</li>
+          <li class="screen__stadistics--li"><h3>Defense</h3> {{ pokemon ? this.pokemon.defense : ''}}</li>
+          <li class="screen__stadistics--li"><h3>S-Attack</h3> {{ pokemon ? this.pokemon.sattack : ''}}</li>
+          <li class="screen__stadistics--li"><h3>S-Defense</h3> {{ pokemon ? this.pokemon.sdefense : ''}}</li>
+          <li class="screen__stadistics--li"><h3>Speed</h3> {{ pokemon ? this.pokemon.speed : ''}}</li>
         </ul>
       </div>
 
@@ -103,10 +115,10 @@ export default {
           display: flex;
           flex-direction: row;
           align-items: center;
-          justify-content: space-around;
+          justify-content: space-evenly;
           
           & .screen__infoPokemon{
-            width: 18vw;
+            width: 36vh;
             height: 90%;
             background:#07370F;
             padding:1vw;
@@ -117,12 +129,51 @@ export default {
               font-family: "IBM Plex Mono";
               display: inline-block;
               font-size:1em;
-          }
+            }
+
+            & .screen__typeList{
+              margin: 1vh 0;
+              list-style: none;
+              width: 100%;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              flex-direction: row;
+
+              & .screen__typeList--type{
+                width: 49%;
+                padding: .5vw;
+                text-align: center;
+                border-radius: 10px;
+                display: inline;
+                color: #fff;
+                font-size: 1em;
+                font-family: 'IBM Plex Mono';
+                text-transform: uppercase;
+                text-shadow: 0px 2px 2px rgba(0,0,0,.75);
+              }
+              
+              & .fullWidth {
+                width: 100%;
+              }
+            }
+
+            & .screen__shinyButton {
+              width: 100%;
+              padding: 0.5vh;
+              font-size: 2vw;
+              text-transform: uppercase;
+              font-family: 'Kameron';
+              letter-spacing: 1px;
+              border-radius: 10px;
+              border: none;
+              cursor: pointer;
+            }
 
           & .screen__pokemonId {
-            width: 7vw;
+            width: 35%;
             height: auto;
-            padding: 1vw;
+            padding: 2vh;
             background: #fff;
             color: #000;
             border-top-left-radius: 10px;
@@ -131,13 +182,13 @@ export default {
 
           & .screen__pokemonName {
             height: auto;
-            width: 12.5vw;
-            padding: 1vw;
+            width: 83%;
+            margin-left:-18%;
+            padding: 2vh;
             text-transform: uppercase;
             text-align: right;
             color: #fff;
             border-top-right-radius: 10px;
-            margin-left: -3.5vw;
             clip-path: polygon(0% 100%, 20% 0%, 100% 0%, 100% 100%, 0% 100%);
             text-shadow: 0px 2px 2px rgba(0,0,0,.75);
           }
@@ -151,7 +202,36 @@ export default {
           }
         }
 
+        & .screen__stadistics {
+          width: 35vw;
+          list-style: none;
+          
+
+          & .screen__stadistics--li {
+            width: 45%;
+            padding: 1vh;
+            margin:1vh;
+            background: #fff;
+            color: #000;
+            font-size: 1.5vw;
+            display: inline-block;
+            font-family: 'IBM Plex Mono';
+            font-weight: 600;
+            text-transform: uppercase;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 4px 4px 0px #FF321D;
+            transition: .3s all ease-in-out;
+
+            & h3 {
+              background: #FF321D;
+              border-top-left-radius: 10px;
+              border-top-right-radius: 10px;
+              font-size:1em;
+            }
           }
+        }
+      }
 
           
         & .screen__buttons{
@@ -174,6 +254,64 @@ export default {
             }
     }
 
+    @media screen and (max-width: 933px){
+
+      .screen {
+
+        & .screen__buttons {
+          width: 52vw;
+
+          & .screen__buttons--button {
+            width: 24vw;
+          }
+        }
+      }
+    }
+
+    @media screen and (max-width: 699px){
+
+    .screen {
+
+      & .screen__buttons {
+        width: 51vw;
+
+        & .screen__buttons--button {
+          width: 23vw;
+        }
+      }
+    }
+  }
+
+
+  @media screen and (max-width: 559px){
+    .screen {
+
+      & .screen__buttons {
+        width: 50vw;
+
+        & .screen__buttons--button {
+          width: 22vw;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 828px){
+  .screen {
+
+    & .screen__background {
+      & .screen__stadistics {
+        width: 20vw;
+
+        & .screen__stadistics--li {
+          width: 100%;
+          margin: 1vh 0;
+          transition: .3s all ease-in-out;
+        }
+      }
+    }
+  }
+}
 </style>
 
   

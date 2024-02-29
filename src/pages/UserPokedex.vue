@@ -39,6 +39,13 @@ export default {
         infoPokemon(id) {
             console.log(id)
             this.$router.push({ path: `/pokedex/${id}` })
+        },
+        printPokemonName(pokemon) {
+            if(pokemon.name.length >=10){
+                return `${pokemon.name.slice(0,5)}...`
+            } else{
+                return pokemon.name
+            }
         }
     }
 }
@@ -49,7 +56,7 @@ export default {
         <ul class="screen__list">
             <li v-for="pokemon in pokemons" :key="pokemon.pokemonId" class="screen__list--element" @click="infoPokemon(pokemon.pokemonId)">
                     <img class="screen__list--img" :src="pokemon.img" :alt="pokemon.name">
-                    <p class="screen__list--name">{{ pokemon.name }}</p>
+                    <p class="screen__list--name">{{ printPokemonName(pokemon) }}</p>
             </li>
         </ul>
     </article>

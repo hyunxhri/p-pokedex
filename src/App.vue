@@ -71,7 +71,7 @@ export default {
     --ice: #86D2F5;
     --normal: #75525C;
     --poison: #5E2D89;
-    --physic: #A52A6C;
+    --psychic: #A52A6C;
     --rock: #48190A;
     --steel: #60756E;
     --water: #1452E1;

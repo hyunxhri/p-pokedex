@@ -2,10 +2,25 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 export default {
+    data(){
+        return {
+            dropdownOpen: false
+        }
+    },
+    computed: {
+        isLoginPage() {
+            return this.$route.path === '/';
+        }
+    },
     props: {
         isDisabled: {
         type: Boolean,
-        default: true
+        default: false
+        }
+    },
+    methods: {
+        toggleDropdown() {
+            this.dropdownOpen = !this.dropdownOpen
         }
     },
     components: {
@@ -15,10 +30,17 @@ export default {
 </script>
 <template>
     <div id="top-bar">
-        <button class="top-bar__button" aria-label="dropdown" :class="{ 'disabled': isDisabled }" :disabled="isDisabled">
+        <button class="top-bar__button" aria-label="dropdown" :class="{ 'disabled': isLoginPage }" :disabled="isLoginPage" @click="toggleDropdown">
             <font-awesome-icon icon="fa-solid fa-caret-down" />
         </button>
     </div>
+    <div v-if="dropdownOpen" class="dropdown-content">
+      <ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+      </ul>
+  </div>
 </template>
 <style lang="css">
     #top-bar {
