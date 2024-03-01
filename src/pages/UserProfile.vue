@@ -2,7 +2,6 @@
 import LeftBar from '@/components/LeftBar.vue'
 import RightButtons from '@/components/RightButtons.vue'
 import axios from 'axios'
-import path from '@/env/env'
 export default {
     data() {
         return {
