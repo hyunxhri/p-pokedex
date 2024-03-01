@@ -54,7 +54,7 @@ export default {
     <LeftBar/>
     <article class="screen">
         <section v-if="user" class="screen__profile">
-            <img src="https://glittery-trifle-edb321.netlify.app/assets/imgs/female.jpg" alt="img-profile" class="screen__img">
+            <img src="@/assets/imgs/female.jpg" alt="img-profile" class="screen__img">
             <ul class="screen__info">
                 <li class="screen__info--li"><h3>Username:</h3> {{ user.username }}</li>
                 <li class="screen__info--li"><h3>Gender:</h3> {{ user.gender }}</li>
