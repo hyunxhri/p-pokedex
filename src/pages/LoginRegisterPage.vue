@@ -52,7 +52,7 @@ export default {
             await axios.post("http://localhost:8080/api/users", {
             username: this.username,
             gender: this.gender,
-            password: this.password
+            password: this.password,
             }).then(response => {
             this.formSubmitted = true
             setTimeout(() => {

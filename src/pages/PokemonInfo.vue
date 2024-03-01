@@ -3,6 +3,7 @@ import LeftBar from '@/components/LeftBar.vue'
 import RightButtons from '@/components/RightButtons.vue'
 import fetchPokemonById from '@/services/fetchPokemonById'
 import { RouterLink } from 'vue-router'
+import axios from 'axios'
 
 export default {
   data() {
@@ -10,6 +11,7 @@ export default {
       pokemonId: null,
       pokemon: null,
       imgShiny : false,
+      isCaptured: false
     }
   },
   created() {
@@ -22,7 +24,6 @@ export default {
       fetchPokemonById(this.pokemonId)
         .then(response => {
           this.pokemon = response
-          console.log(this.pokemon)
         })
         .catch(error => {
           console.error('Error fetching Pokemon:', error)
@@ -57,10 +58,45 @@ export default {
       }
     },
     changeImgToShiny(){
-      this.imgShiny ? this.imgShiny = false : this.imgShiny = true
-    }
+      this.imgShiny = !this.imgShiny
+    },
+    addPokemonToTeam(){
+      const token = JSON.parse(localStorage.getItem('auth')).user.token
+      axios.put(`http://localhost:8080/api/pokedex/pokemons/${this.pokemonId}`, {
+        favorite: true
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }).then(() => {
+        console.log('Pokemon added to team')
+      }).catch(error => {
+        console.error('Error adding Pokemon to team:', error)
+      })
+    }/*,
+    isPokemonCaptured(){
+      const auth = JSON.parse(localStorage.getItem('auth'))
+      if (!auth || !auth.user || !auth.user.token) {
+        throw new Error('No se encontró un token de autenticación')
+      }
+      const token = auth.user.token
+      axios.get(`http://localhost:8080/api/pokedex`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }).then(response => {
+        response.data.pokedexPokemon.map(pokemon => {
+          if(pokemon.pokemonId === this.pokemonId && pokemon.captured){
+            this.isCaptured = true
+          }
+        })
+      }).catch(error => {
+        console.error('Error fetching captured Pokemon:', error)
+      })
+      return this.isCaptured
+    }*/
   },
-  components: { LeftBar, RightButtons },
+  components: { LeftBar, RightButtons, RouterLink },
 }
 </script>
 
@@ -87,11 +123,16 @@ export default {
           <li class="screen__stadistics--li"><h3>S-Defense</h3> {{ pokemon ? this.pokemon.sdefense : ''}}</li>
           <li class="screen__stadistics--li"><h3>Speed</h3> {{ pokemon ? this.pokemon.speed : ''}}</li>
         </ul>
+
+        <!--
+          <h2 v-if="isPokemonCaptured()" class="screen__capturedText">{{ isCapturedMessage }}</h2>
+          <button @click="addPokemonToTeam()" :disabled="!isPokemonCaptured()">Add to team</button>
+        -->
       </div>
 
       <div class="screen__buttons">
-            <RouterLink to="/pokedex">
-                <button class="screen__buttons--button">Pokedex</button>
+            <RouterLink to="/explore">
+                <button class="screen__buttons--button">Search</button>
             </RouterLink>
             <RouterLink to="/profile">
                 <button class="screen__buttons--button">Profile</button>
@@ -116,6 +157,7 @@ export default {
           flex-direction: row;
           align-items: center;
           justify-content: space-evenly;
+
           
           & .screen__infoPokemon{
             width: 36vh;
@@ -145,7 +187,6 @@ export default {
                 padding: .5vw;
                 text-align: center;
                 border-radius: 10px;
-                display: inline;
                 color: #fff;
                 font-size: 1em;
                 font-family: 'IBM Plex Mono';
@@ -306,12 +347,244 @@ export default {
         & .screen__stadistics--li {
           width: 100%;
           margin: 1vh 0;
-          transition: .3s all ease-in-out;
+          transition: all .3s ease-in-out;
         }
       }
     }
   }
 }
+
+
+@media screen and (max-width: 1207px){
+    .screen {
+        & .screen__background {
+          flex-direction: column;
+
+          & .screen__infoPokemon{
+            width:90%;
+            position:relative;
+            height: 32%;
+
+            & .screen__pokemonId{
+              margin-left:1vh;
+              width: 25%;
+            }
+
+            & .screen__pokemonName{
+              float: right;
+              width: 56%;
+            }
+
+            & .screen__img{
+                margin: 0;
+                width: 30%;
+                display: block;
+                border-radius:10px;
+                float:left;
+            }
+
+            & .screen__typeList{
+              align-items: end;
+              flex-direction: column;
+              width: 60%;
+              margin: 1vh auto;
+
+              & .screen__typeList--type{
+                width: 100%;
+              }
+            }
+
+            & .screen__shinyButton{
+              position: absolute;
+              right: 0;
+              width: 66%;
+              margin: 1.2vh;
+              bottom: 0;
+            }
+          }
+
+
+          & .screen__stadistics{
+            width: 90%; 
+            & .screen__stadistics--li{
+              width: 47%;
+              margin: 0.5vh;
+              transition: all .3s ease-in-out;
+            }
+          }
+        }
+
+      }
+  }
+
+  @media screen and (max-width: 900px){
+    .screen {
+        & .screen__background {
+
+          & .screen__infoPokemon{
+
+            & .screen__img{
+              width: 13vh;
+            }
+
+            & .screen__shinyButton{
+              width: 95%;
+                  height: 5vh;
+            }
+          }
+        }
+
+      }
+  }
+
+  @media screen and (max-width: 787px){
+    .screen {
+        & .screen__background {
+
+          & .screen__infoPokemon{
+
+            & .screen__img{
+              width: 6.3vh;
+            }
+
+            & .screen__pokemonId{
+              width: 29%;
+            }
+
+            & .screen__pokemonName{
+              width: 66%;
+            }
+
+            & .screen__typeList{
+              width: 100%;
+
+              & .screen__typeList--type{
+                margin-bottom: 0.7vh;
+              }
+            }
+
+            & .screen__shinyButton{
+              width: 94%;
+            }
+          }
+        }
+
+      }
+  }
+
+  @media screen and (max-width: 425px){
+    .screen {
+      width:100%;
+        & .screen__background {
+
+          & .screen__infoPokemon{
+            height: 42%;
+            & .screen__img{
+              margin: 1vh;
+            }
+
+            & .screen__pokemonId{
+              width: 35%;
+              margin-top: 1vh;
+            }
+
+            & .screen__pokemonName{
+              width: 76%;
+              margin-top: 1vh;
+              margin-right: 1vh;
+            }
+
+            & .screen__shinyButton{
+              width: 92%;
+              font-size: 1em;
+            }
+
+            & .screen__typeList{
+              width: 50%;
+              & .screen__typeList--type{
+                width: 100%;
+                margin: 1vh 0;
+                padding: 1.5vh;
+                margin: 0.5vh 0;
+              }
+            
+            }
+          }
+
+          
+          & .screen__stadistics{
+              width: 90%;
+              & .screen__stadistics--li{
+                margin: 0.6vh 0;
+                width: 100%;
+                font-size:1vh;
+              }
+            }
+            
+        }
+
+        & .screen__buttons{
+          display:none;
+        }
+
+      }
+  }
+
+  @media screen and (max-width: 375px){
+    .screen {
+        & .screen__background {
+
+          & .screen__infoPokemon{
+
+            & .screen__pokemonName{
+              width: 75%;
+            }
+            & .screen__typeList{
+              & .screen__typeList--type{
+                width: 85%;
+              }
+            
+            }
+          }
+            
+        }
+
+      }
+  }
+
+  @media screen and (max-width: 320px){
+    .screen {
+      height: 88vh;
+        & .screen__background {
+
+          & .screen__infoPokemon{
+            height:37.5%;
+            & .screen__pokemonName{
+              width: 74%;
+            }
+
+            & .screen__img{
+              margin: 1vh;
+              height: 10vh;
+              width: 10vh;
+            }
+            & .screen__typeList{
+              & .screen__typeList--type{
+                padding: 0.9vh;
+              }
+            
+            }
+
+            & .screen__shinyButton{
+              width: 90%;
+            }
+          }
+            
+        }
+
+      }
+  }
+  
 </style>
 
   

@@ -64,7 +64,7 @@ export default {
     @media screen and (max-width: 425px){
         .buttons-bar {
             width: 80vw;
-            height: 20vw;
+            height: 24vw;
             display: flex;
             flex-direction: row-reverse;
             position: absolute;
@@ -75,26 +75,53 @@ export default {
 
             & .buttons-bar__button{
                 width: 40vw;
-                height: 10vh;
+                height: 15vw;
                 background: #0C0C0D;
                 border-radius: 11vw;
                 border: 1vh solid #FF321D;
                 color: #D9D9D9;
                 font-size: 10vw;
                 cursor: pointer;
+
+                &.disabled {
+                    display:none;
+                }
             }
+
         }
     }
 
     @media screen and (max-width: 375px){
         .buttons-bar {
             bottom:3vh;
+            height: 22vw;
+
+            .buttons-bar__button{
+
+                &.disabled {
+                    display:none;
+                }
+
+                }
         }
+
     }
 
     @media screen and (max-width: 320px){
         .buttons-bar {
-            bottom:5vh;
+            bottom: 4vh;
+            width: 72vw;
+
+            .buttons-bar__button{
+                
+
+                &.disabled {
+                    display:none;
+                }
+
+            }
+
         }
+
     }
 </style>

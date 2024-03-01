@@ -76,4 +76,10 @@ export default {
     --steel: #60756E;
     --water: #1452E1;
   }
+
+  @media screen and (max-width: 320px){
+
+
+      
+  }
 </style>

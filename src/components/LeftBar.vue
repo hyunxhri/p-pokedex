@@ -16,7 +16,7 @@ export default {
     methods: {
         logOut() {
             useAuthStore().logOut()
-            router.push({ name: 'Login' })
+            router.push({ name: 'login' })
         }
     }   
 }

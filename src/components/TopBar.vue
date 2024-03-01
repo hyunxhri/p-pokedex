@@ -1,11 +1,16 @@
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { useAuthStore } from '@/stores/authStore'
+import router from '@/router/Router'
 
 export default {
     data(){
         return {
             dropdownOpen: false
         }
+    },
+    created(){
+        this.dropdownOpen = false
     },
     computed: {
         isLoginPage() {
@@ -21,11 +26,15 @@ export default {
     methods: {
         toggleDropdown() {
             this.dropdownOpen = !this.dropdownOpen
+        },
+        logOut() {
+            useAuthStore().logOut()
+            router.push({ name: 'login' })
         }
     },
     components: {
-    FontAwesomeIcon
-  }
+    FontAwesomeIcon,
+}
 }
 </script>
 <template>
@@ -34,14 +43,14 @@ export default {
             <font-awesome-icon icon="fa-solid fa-caret-down" />
         </button>
     </div>
-    <div v-if="dropdownOpen" class="dropdown-content">
-      <ul>
-        <li>Item 1</li>
-        <li>Item 2</li>
-        <li>Item 3</li>
+      <ul v-if="dropdownOpen" class="dropdown-content">
+        <router-link to="/pokedex"><li class="dropdown-content__li">Pokedex</li></router-link>
+        <router-link to="/explore"><li class="dropdown-content__li">Search Pokemon</li></router-link>
+        <router-link to="/profile"><li class="dropdown-content__li">Profile</li></router-link>
+        <li class="dropdown-content__li" @click="logOut()">Logout</li>
       </ul>
-  </div>
 </template>
+
 <style lang="css">
     #top-bar {
         width: 100%;
@@ -68,11 +77,36 @@ export default {
             }
     }
 
-    @media screen and (min-width: 321px){
+    .dropdown-content {
+        background: #FF321D;
+        position: absolute;
+        border-bottom: 0.5vh solid #000;
+        width: 100%;
+        padding: 1vh 2vh;
+        z-index: 1;
+
+        & a {
+            text-decoration: none;
+
+        }
+
+        & .dropdown-content__li {
+            font-family: 'IBM PLEX MONO';
+            text-transform: uppercase;
+            list-style: none;
+            color: #fff;
+            background: rgba(0,0,0,.1);
+            margin: 1vh;
+            padding: 1vh;
+        }
+    }
+
+    @media screen and (min-width: 426px){
         .top-bar__button {
             display:none;
             transition: ease-in all 0.2s;
         }
     }
+
 
 </style>
