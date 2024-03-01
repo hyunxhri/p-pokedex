@@ -2,7 +2,7 @@
 import LeftBar from '@/components/LeftBar.vue'
 import RightButtons from '@/components/RightButtons.vue'
 import axios from 'axios'
-import env from '@/env'
+import path from '@/env'
 export default {
     data() {
         return {
@@ -21,7 +21,7 @@ export default {
     },
     methods: {
         changeImg(gender) {
-            return `${env}/${gender}.jpg`
+            return `${path}/${gender}.jpg`
         },
         async fetchTeam() {
             const auth = JSON.parse(localStorage.getItem('auth'))
