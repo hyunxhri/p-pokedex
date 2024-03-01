@@ -58,7 +58,6 @@ export default {
             setTimeout(() => {
                 this.changeForm()
             }, 2000)
-            console.log(response)
             }).catch(error => {
             console.log(error)
             })

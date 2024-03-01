@@ -67,7 +67,6 @@ export default {
     },
     async mounted() {
         await this.fetchNewPokemon()
-        console.log(this.pokemon)
     }
 }
 </script>

@@ -2,12 +2,14 @@
 import LeftBar from '@/components/LeftBar.vue'
 import RightButtons from '@/components/RightButtons.vue'
 import axios from 'axios'
+
 export default {
     data() {
         return {
             user: null,
             isButtonDisabled: true,
-            team: []
+            team: [],
+            path: 'https://curious-frangipane-e51feb.netlify.app/'
         }
     },
     components: {
@@ -20,7 +22,7 @@ export default {
     },
     methods: {
         changeImg(gender) {
-            // TO DO
+            return `${this.path}assets/imgs/${gender}.jpg`
         },
         async fetchTeam() {
             const auth = JSON.parse(localStorage.getItem('auth'))
@@ -28,7 +30,6 @@ export default {
             await axios.get('http://localhost:8080/api/pokedex/favorites', {
                 headers: { 'Authorization': `Bearer ${token}` }
             }).then(response => {
-                console.log(response.data)
                 this.team = response.data
             }).catch(error => {
                 console.error('Error fetching team:', error)
@@ -54,7 +55,7 @@ export default {
     <LeftBar/>
     <article class="screen">
         <section v-if="user" class="screen__profile">
-            <img src="@/assets/imgs/female.jpg" alt="img-profile" class="screen__img">
+            <img :src="changeImg(user.gender)" alt="img-profile" class="screen__img">
             <ul class="screen__info">
                 <li class="screen__info--li"><h3>Username:</h3> {{ user.username }}</li>
                 <li class="screen__info--li"><h3>Gender:</h3> {{ user.gender }}</li>
