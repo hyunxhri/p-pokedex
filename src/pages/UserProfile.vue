@@ -8,6 +8,7 @@ export default {
         return {
             user: null,
             isButtonDisabled: true,
+            team: []
         }
     },
     components: {
@@ -15,19 +16,37 @@ export default {
         RightButtons,
     },
     mounted() {
-        const auth = JSON.parse(localStorage.getItem('auth'))
-        const token = auth.user.token
-        axios.get('http://localhost:8080/api/users/me', {
-            headers: { 'Authorization': `Bearer ${token}` }
-        }).then(response => {         
-            this.user = response.data
-        }).catch(error => {
-            console.error('Error fetching user data:', error)
-        })
+        this.fetchProfile()
+        this.fetchTeam()
     },
     methods: {
         changeImg(gender) {
             return `/src/assets/imgs/${gender}.jpg`
+        },
+        async fetchTeam() {
+            const auth = JSON.parse(localStorage.getItem('auth'))
+            const token = auth.user.token
+            await axios.get('http://localhost:8080/api/pokedex/favorites', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            }).then(response => {
+                console.log(response.data)
+                this.team = response.data
+            }).catch(error => {
+                console.error('Error fetching team:', error)
+            })
+        },
+        async fetchProfile() {
+            const auth = JSON.parse(localStorage.getItem('auth'))
+            const token = auth.user.token
+            axios.get('http://localhost:8080/api/users/me', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            }).then(response => {         
+                this.user = response.data
+            }).catch(error => {
+                console.error('Error fetching user data:', error)
+            })
+        }, infoPokemon(pokemonId) {
+            this.$router.push(`/pokedex/${pokemonId}`)
         }
     },
 }
@@ -42,6 +61,13 @@ export default {
                 <li class="screen__info--li"><h3>Gender:</h3> {{ user.gender }}</li>
             </ul>
             <h2 class="screen__divider">EQUIPO POKEMON</h2>
+            <!-- Here should be the img and name of pokemon but no time to end it -->
+            <ul class="screen__team" v-if="team.length > 0">
+                <li v-for="pokemon in team" :key="pokemon.pokemonId" class="screen__team--pokemon" @click="infoPokemon(pokemon.pokemonId)">
+                        <p class="screen__team--id">{{ pokemon.pokemonId }}</p>
+                </li>
+            </ul>
+            <h1 v-else>You have not pokemons in your team.</h1>
         </section>
         <div class="screen__buttons">
             <RouterLink to="/pokedex">
@@ -119,6 +145,15 @@ export default {
                 margin-top: 2vh;
                 margin-bottom: 2vh;
             }
+        }
+
+        & .screen__team--pokemon{
+            list-style: none;
+            width: 100%;
+            background: white;
+            padding: 1vh;
+            margin:1vh 0;
+            border-radius:10px;
         }
 
         & .screen__buttons{

@@ -28,7 +28,7 @@ export default {
                 }
                 const token = auth.user.token;
                 await axios.put(`http://localhost:8080/api/pokedex/pokemons/${this.pokemon.pokemonId}`, {
-                    seen: true
+                    "seen": true
                 }, {
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -43,9 +43,8 @@ export default {
             if (randomNumber < 50) {
                 this.isCapturedMsg = "¡Enhorabuena, lo has capturado!"
                 const token = JSON.parse(localStorage.getItem('auth')).user.token
-                console.log(token)
                 await axios.put(`http://localhost:8080/api/pokedex/pokemons/${this.pokemon.pokemonId}`, {
-                    captured: true
+                    "captured": true
                 }, {headers : {
                     'Authorization': `Bearer ${token}` 
                 }}).then(() => {

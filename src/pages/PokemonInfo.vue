@@ -10,8 +10,9 @@ export default {
     return {
       pokemonId: null,
       pokemon: null,
-      imgShiny : false,
-      isCaptured: false
+      imgShiny: false,
+      captured: false,
+      isCapturedMessage: ''
     }
   },
   created() {
@@ -24,6 +25,7 @@ export default {
       fetchPokemonById(this.pokemonId)
         .then(response => {
           this.pokemon = response
+          this.isPokemonCaptured()
         })
         .catch(error => {
           console.error('Error fetching Pokemon:', error)
@@ -35,6 +37,7 @@ export default {
       } else {
         this.pokemonId = 1
       }
+      this.isCapturedMessage = ''
       this.$router.push({ path: `/pokedex/${this.pokemonId}` })
       this.fetchPokemon()
     },
@@ -44,23 +47,24 @@ export default {
       } else {
         this.pokemonId = 500
       }
+      this.isCapturedMessage = ''
       this.$router.push({ path: `/pokedex/${this.pokemonId}` })
       this.fetchPokemon()
     },
     getPokemonTypeBackground() {
-      if(this.pokemon) {
+      if (this.pokemon) {
         return `background-color: var(--${this.pokemon.type})`
       }
     },
-    getPokemonType2Background(){
-      if(this.pokemon) {
+    getPokemonType2Background() {
+      if (this.pokemon) {
         return `background-color: var(--${this.pokemon.type2})`
       }
     },
-    changeImgToShiny(){
+    changeImgToShiny() {
       this.imgShiny = !this.imgShiny
     },
-    addPokemonToTeam(){
+    addPokemonToTeam() {
       const token = JSON.parse(localStorage.getItem('auth')).user.token
       axios.put(`http://localhost:8080/api/pokedex/pokemons/${this.pokemonId}`, {
         favorite: true
@@ -69,36 +73,36 @@ export default {
           'Authorization': `Bearer ${token}`
         }
       }).then(() => {
-        console.log('Pokemon added to team')
+        return this.isCapturedMessage = "Pokemon added to team!"
       }).catch(error => {
         console.error('Error adding Pokemon to team:', error)
       })
     },
-    isPokemonCaptured(){
+    async isPokemonCaptured() {
       const auth = JSON.parse(localStorage.getItem('auth'))
       if (!auth || !auth.user || !auth.user.token) {
         throw new Error('No se encontró un token de autenticación')
       }
       const token = auth.user.token
-      axios.get(`http://localhost:8080/api/pokedex`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      }).then(response => {
-        response.data.pokedexPokemon.map(pokemon => {
-          if(pokemon.pokemonId === this.pokemonId && pokemon.captured){
-            this.isCaptured = true
+
+      try {
+        const response = await axios.get(`http://localhost:8080/api/pokedex`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
           }
         })
-      }).catch(error => {
+        const capturedPokemon = response.data.pokedexPokemon.find(pokemon => pokemon.pokemonId === this.pokemonId)
+        this.captured = !!capturedPokemon // if capturedPokemon is undefined, captured will be false
+      } catch (error) {
         console.error('Error fetching captured Pokemon:', error)
-      })
-      return this.isCaptured
+        throw error
+      }
     }
   },
   components: { LeftBar, RightButtons, RouterLink },
 }
 </script>
+
 
 <template>
     <LeftBar />
@@ -114,19 +118,18 @@ export default {
           </ul>
           <button class="screen__shinyButton" @click="changeImgToShiny">Shiny</button>
         </section>
-
-        <ul class="screen__stadistics">
-          <li class="screen__stadistics--li"><h3>Hp</h3> {{ pokemon ? this.pokemon.hp : ''}}</li>
-          <li class="screen__stadistics--li"><h3>Attack</h3> {{ pokemon ? this.pokemon.attack : ''}}</li>
-          <li class="screen__stadistics--li"><h3>Defense</h3> {{ pokemon ? this.pokemon.defense : ''}}</li>
-          <li class="screen__stadistics--li"><h3>S-Attack</h3> {{ pokemon ? this.pokemon.sattack : ''}}</li>
-          <li class="screen__stadistics--li"><h3>S-Defense</h3> {{ pokemon ? this.pokemon.sdefense : ''}}</li>
-          <li class="screen__stadistics--li"><h3>Speed</h3> {{ pokemon ? this.pokemon.speed : ''}}</li>
-        </ul>
-
-          <h2 v-if="isPokemonCaptured()" class="screen__capturedText">{{ isCapturedMessage }}</h2>
-          <button @click="addPokemonToTeam()" :disabled="!isPokemonCaptured()">Add to team</button>
-
+        <div class="screen__right-side">
+            <ul class="screen__stadistics">
+              <li class="screen__stadistics--li"><h3>Hp</h3> {{ pokemon ? this.pokemon.hp : ''}}</li>
+              <li class="screen__stadistics--li"><h3>Attack</h3> {{ pokemon ? this.pokemon.attack : ''}}</li>
+              <li class="screen__stadistics--li"><h3>Defense</h3> {{ pokemon ? this.pokemon.defense : ''}}</li>
+              <li class="screen__stadistics--li"><h3>S-Attack</h3> {{ pokemon ? this.pokemon.sattack : ''}}</li>
+              <li class="screen__stadistics--li"><h3>S-Defense</h3> {{ pokemon ? this.pokemon.sdefense : ''}}</li>
+              <li class="screen__stadistics--li"><h3>Speed</h3> {{ pokemon ? this.pokemon.speed : ''}}</li>
+            </ul>
+            <h2 v-if="isPokemonCaptured()" class="screen__capturedText">{{ isCapturedMessage }}</h2>
+            <button class="screen__capturedButton" @click="addPokemonToTeam()" :disabled="!captured">Add to team</button>
+        </div>
       </div>
 
       <div class="screen__buttons">
@@ -157,7 +160,6 @@ export default {
           align-items: center;
           justify-content: space-evenly;
 
-          
           & .screen__infoPokemon{
             width: 36vh;
             height: 90%;
@@ -271,6 +273,36 @@ export default {
             }
           }
         }
+
+        
+        & .screen__right-side {
+            width:60%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        
+            & .screen__capturedText {
+              font-size: 2vw;
+              font-family: 'Kameron';
+              text-align: center;
+              margin: 1vh 0;
+            }
+
+            & .screen__capturedButton {
+              width: 94%;
+              margin: 0.5vw;
+              padding: 2vh;
+              border-radius: 15px;
+              border: none;
+              font-family: 'IBM Plex Mono';
+              text-transform: uppercase;
+              font-weight: 600;
+              font-size: 1em;
+            }
+        }
+
+        
       }
 
           
