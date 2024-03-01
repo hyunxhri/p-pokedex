@@ -10,10 +10,7 @@ export default {
         }
     },
     beforeMount() {
-        this.$router.beforeEach((to, from, next) => {
-            this.dropdownOpen = false
-            next()
-        })
+        this.dropdownOpen = false
     },
     computed: {
         isLoginPage() {
