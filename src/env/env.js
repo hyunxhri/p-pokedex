@@ -1,3 +1,3 @@
-const path =  import.meta.env.DEV ? "/src" : `https://glittery-trifle-edb321.netlify.app` 
+const path =  import.meta.env.DEV ? "/src" : `https://curious-frangipane-e51feb.netlify.app` 
 
 export default path
