@@ -9,9 +9,6 @@ export default {
             dropdownOpen: false
         }
     },
-    created(){
-        this.dropdownOpen = false
-    },
     computed: {
         isLoginPage() {
             return this.$route.path === '/';
@@ -30,6 +27,11 @@ export default {
         logOut() {
             useAuthStore().logOut()
             router.push({ name: 'login' })
+        }
+    },
+    watch: {
+        '$route'() {
+            this.dropdownOpen = false;
         }
     },
     components: {
