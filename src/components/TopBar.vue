@@ -47,6 +47,7 @@ export default {
         <router-link to="/pokedex"><li class="dropdown-content__li">Pokedex</li></router-link>
         <router-link to="/explore"><li class="dropdown-content__li">Search Pokemon</li></router-link>
         <router-link to="/profile"><li class="dropdown-content__li">Profile</li></router-link>
+        <router-link to="/contact"><li class="dropdown-content__li">Contact</li></router-link>
         <li class="dropdown-content__li" @click="logOut()">Logout</li>
       </ul>
 </template>

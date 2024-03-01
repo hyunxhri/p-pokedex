@@ -73,7 +73,7 @@ export default {
       }).catch(error => {
         console.error('Error adding Pokemon to team:', error)
       })
-    }/*,
+    },
     isPokemonCaptured(){
       const auth = JSON.parse(localStorage.getItem('auth'))
       if (!auth || !auth.user || !auth.user.token) {
@@ -94,7 +94,7 @@ export default {
         console.error('Error fetching captured Pokemon:', error)
       })
       return this.isCaptured
-    }*/
+    }
   },
   components: { LeftBar, RightButtons, RouterLink },
 }
@@ -124,10 +124,9 @@ export default {
           <li class="screen__stadistics--li"><h3>Speed</h3> {{ pokemon ? this.pokemon.speed : ''}}</li>
         </ul>
 
-        <!--
           <h2 v-if="isPokemonCaptured()" class="screen__capturedText">{{ isCapturedMessage }}</h2>
           <button @click="addPokemonToTeam()" :disabled="!isPokemonCaptured()">Add to team</button>
-        -->
+
       </div>
 
       <div class="screen__buttons">
@@ -481,6 +480,7 @@ export default {
             height: 42%;
             & .screen__img{
               margin: 1vh;
+              width: 40%;
             }
 
             & .screen__pokemonId{
@@ -540,9 +540,7 @@ export default {
               width: 75%;
             }
             & .screen__typeList{
-              & .screen__typeList--type{
-                width: 85%;
-              }
+              margin: 1vh 0;
             
             }
           }
@@ -555,6 +553,8 @@ export default {
   @media screen and (max-width: 320px){
     .screen {
       height: 88vh;
+      border: 3vh solid #FF321D;
+
         & .screen__background {
 
           & .screen__infoPokemon{

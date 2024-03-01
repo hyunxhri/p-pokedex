@@ -109,7 +109,7 @@ export default {
 
     @media screen and (max-width: 320px){
         .buttons-bar {
-            bottom: 4vh;
+            bottom: 2vh;
             width: 72vw;
 
             .buttons-bar__button{

@@ -197,7 +197,7 @@ export default {
         .screen {
 
             & .screen__list {
-
+                height:71vh;
                 & .screen__list--element{
                 width: 55vw;
                 }

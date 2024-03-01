@@ -99,4 +99,47 @@ export default {
       }
     }
 }
+
+@media screen and (max-width: 425px){
+  .content{
+    width: 100%;
+
+    & .content__form{
+
+      & .content__form--input, .content__form--error-message, .content__form--success-message, .content__form--textarea, .content__form--button{
+        width: 70vw;
+        padding:1vh;
+        font-size: 1em;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 375px){
+  .content{
+    width: 100%;
+    border: 3vh solid #FF321D;
+
+    & .content__title{
+      margin:2vh;
+    }
+
+    & .content__form{
+
+      & .content__form--input, .content__form--error-message, .content__form--success-message, .content__form--textarea, .content__form--button{
+        width: 70vw;
+        padding:1vh;
+        font-size: 1em;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 320px){
+  .content{
+    & .content__title{
+      font-size:2em;
+    }
+  }
+}
 </style>

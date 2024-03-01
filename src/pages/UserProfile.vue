@@ -73,11 +73,13 @@ export default {
             & .screen__img{
                 border-radius: 20px;
                 width: 20%;
+                transition: ease-in-out all .2s;
             }
 
             & .screen__info{
                 width: 80%;
                 float:right;
+                transition: ease-in-out all .2s;
 
             }
 
@@ -135,19 +137,79 @@ export default {
                 text-transform:uppercase;
                 font-family: 'Kameron';
                 cursor: pointer;
+
             }
+    }
+
+    @media screen and (max-width: 1043px){
+        .screen{
+            & .screen__profile{
+
+                & .screen__img{
+                    width: 32%;
+                    transition: ease-in-out all .2s;
+                }
+
+                & .screen__info{
+                    width:65%;
+                    transition: ease-in-out all .2s;
+
+
+                    & .screen__info--li{
+                        font-size:1em;
+                        margin:1vh 0;
+                    }
+                }
+
+                & .screen__divider{
+                    font-size: 1.2em;
+                    padding: 1vh;
+                }
+             }
+             
+             & .screen__buttons{
+
+                & .screen__buttons--button{
+                    width: 20vw;
+                }
+                
+             }
+        }
     }
 
     @media screen and (max-width: 425px){
         .screen{
             width: 100%;
-            padding:2vh;
-            
-            & .screen__buttons--button{
-                display:none;
-            }
-        }
+            border: 3vh solid #FF321D;
+            padding: 3vh;
+            & .screen__profile{
+                padding: 3vh;
 
+                & .screen__img{
+                    width: 100%;
+                }
+
+                & .screen__info{
+                    width:100%;
+                    float: unset;
+                    margin-left:-.5vh;
+
+                    & .screen__info--li{
+                        font-size:1em;
+                        margin:1vh 0;
+                    }
+                }
+
+                & .screen__divider{
+                    font-size: 1.2em;
+                    padding: 1vh;
+                }
+             }
+             
+             & .screen__buttons{
+                display:none;
+             }
+        }
     }
 
     @media screen and (max-width: 375px){
@@ -157,9 +219,6 @@ export default {
 }
 
     @media screen and (max-width: 320px){
-        .screen{
-
-        }
 
     }
 
