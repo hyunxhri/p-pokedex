@@ -1,3 +1,9 @@
-const path =  import.meta.env.DEV ? "/src" : `https://curious-frangipane-e51feb.netlify.app` 
+let path;
 
-export default path
+if (window.location.hostname === "localhost") {
+  path = "/src";
+} else {
+  path = "https://curious-frangipane-e51feb.netlify.app/";
+}
+
+export default path;
