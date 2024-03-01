@@ -21,7 +21,7 @@ export default {
     },
     methods: {
         changeImg(gender) {
-            return `${path}src/assets/imgs/${gender}.jpg`
+            return `${path}/assets/imgs/${gender}.jpg`
         },
         async fetchTeam() {
             const auth = JSON.parse(localStorage.getItem('auth'))
