@@ -68,17 +68,15 @@ Si clickas en un pokemon que esté visto (independientemente de si está captura
 
 ![1709329712145](image/README/1709329712145.png)
 
-
 ## POKEMON INFORMACIÓN
 
-El botón de shiny cambia la imagen para mostrar el pokemon shiny. 
+El botón de shiny cambia la imagen para mostrar el pokemon shiny.
 
 El botón add to team te permite añadirlo al equipo.
 
 Los botones de la derecha te permiten ver el resto de pokemon, independientemente de si los viste o no.
 
 ![1709329865747](image/README/1709329865747.png)
-
 
 ## PROFILE
 
@@ -94,17 +92,16 @@ Sirve para contactar y tiene también validación de formulario.
 
 ![1709330101178](image/README/1709330101178.png)
 
-
 ## ERROR PAGE
 
 Muestra una animación y tras ello te permite regresar a la pokedex (o al login en caso de estar desconectado)
 
 ![1709330166723](image/README/1709330166723.png)
 
-
 ## REFLEXIÓN
 
 Una de las cosas que he aprendido es que he de mejorar mi gestión del tiempo y el hacer un producto mínimo viable. He querido ir añadiendo cosas, lo cual me ha dejado cosas que tenía en mente en un principio en el tintero y sin poder pulir controles de errores que me gustaría haber dejado bien. Por añadir funcionalidades, como puede ser la lista con los diferentes estados de los pokemon (no visto, visto, capturado) han habido cosas que no quedaron pulidas. Para la próxima vez, creo que debería respetar mi propia idea inicial y sólo una vez eso esté completo, añadir extras.
 
-
 ## PRESENTACIÓN
+
+https://curious-frangipane-e51feb.netlify.app/#/
