@@ -21,7 +21,7 @@ export default {
     },
     methods: {
         changeImg(gender) {
-            return `${path}/assets/imgs/${gender}.jpg`
+            // TO DO
         },
         async fetchTeam() {
             const auth = JSON.parse(localStorage.getItem('auth'))
@@ -55,7 +55,7 @@ export default {
     <LeftBar/>
     <article class="screen">
         <section v-if="user" class="screen__profile">
-            <img :src="changeImg(user.gender)" alt="img-profile" class="screen__img">
+            <img src="@/assets/imgs/female.jpg" alt="img-profile" class="screen__img">
             <ul class="screen__info">
                 <li class="screen__info--li"><h3>Username:</h3> {{ user.username }}</li>
                 <li class="screen__info--li"><h3>Gender:</h3> {{ user.gender }}</li>
