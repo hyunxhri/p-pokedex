@@ -107,6 +107,10 @@ export default {
             display:none;
             transition: ease-in all 0.2s;
         }
+
+        .dropdown-content {
+            display:none;
+        }
     }
 
 
