@@ -9,7 +9,7 @@ export default {
             dropdownOpen: false
         }
     },
-    beforeMount() {
+    create() {
         this.dropdownOpen = false
     },
     computed: {
