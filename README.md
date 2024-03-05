@@ -102,6 +102,10 @@ Muestra una animación y tras ello te permite regresar a la pokedex (o al login 
 
 Una de las cosas que he aprendido es que he de mejorar mi gestión del tiempo y el hacer un producto mínimo viable. He querido ir añadiendo cosas, lo cual me ha dejado cosas que tenía en mente en un principio en el tintero y sin poder pulir controles de errores que me gustaría haber dejado bien. Por añadir funcionalidades, como puede ser la lista con los diferentes estados de los pokemon (no visto, visto, capturado) han habido cosas que no quedaron pulidas. Para la próxima vez, creo que debería respetar mi propia idea inicial y sólo una vez eso esté completo, añadir extras.
 
+
+## ACCESIBILIDAD
+
+
 ## PRESENTACIÓN
 
 https://curious-frangipane-e51feb.netlify.app/#/
