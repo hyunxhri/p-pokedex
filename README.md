@@ -108,8 +108,6 @@ Tras pasar el primer test vemos un error, así que procedemos a corregirlo en el
 
 ![1709636816891](image/README/1709636816891.png)
 
-![1709636836428](image/README/1709636836428.png)
-
 Utilizando la extensión de **wave** he ido pasando por las diferentes páginas, comprobando que no hubieran errores y en caso de haberlos corrigiéndolos. Por ejemplo, tuve error de falta de label en los formularios de login y registro y lo solucioné con aria-label en ellos.
 
 ![1709637316921](image/README/1709637316921.png)
