@@ -104,17 +104,21 @@ Una de las cosas que he aprendido es que he de mejorar mi gestión del tiempo y 
 
 ## ACCESIBILIDAD
 
-Tras pasar el primer test vemos un error, así que procedemos a corregirlo en el código.
+Tras pasar el primer test vemos que tenemos un único error. Este error se encuentra en la importación de una font nueva. Lo corregimos cambiando el "lighter" por 400 ya que  font-weight se trabaja con números o con normal. 
 
 ![1709636816891](image/README/1709636816891.png)
 
-Utilizando la extensión de **wave** he ido pasando por las diferentes páginas, comprobando que no hubieran errores y en caso de haberlos corrigiéndolos. Por ejemplo, tuve error de falta de label en los formularios de login y registro y lo solucioné con aria-label en ellos.
+![1709639271521](image/README/1709639271521.png)
+
+![1709638561497](image/README/1709638561497.png)
+
+Utilizando la extensión de **wave** he ido pasando por las diferentes páginas, comprobando que no hubieran errores y en caso de haberlos corrigiéndolos. Por ejemplo, tuve error de falta de label en los formularios de login y registro y lo solucioné con aria-label en ellos. También he corregido algunos temas de contrastes o títulos a lo largo del proyecto.
 
 ![1709637316921](image/README/1709637316921.png)
 
-![1709637546452](image/README/1709637546452.png)
+![1709639351487](image/README/1709639351487.png)
 
-![1709637586266](image/README/1709637586266.png)
+![1709639434913](image/README/1709639434913.png)
 
 ## PRESENTACIÓN
 
