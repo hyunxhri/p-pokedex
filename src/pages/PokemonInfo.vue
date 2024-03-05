@@ -12,7 +12,7 @@ export default {
       pokemon: null,
       imgShiny: false,
       captured: false,
-      isCapturedMessage: ''
+      isCapturedMessage: ' '
     }
   },
   created() {

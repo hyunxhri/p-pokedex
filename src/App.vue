@@ -32,6 +32,13 @@ export default {
     font-style: normal;
   }
 
+  @font-face {
+    font-family: "IBM Plex Mono";
+    src: url('./assets/fonts/IBM_Plex_Mono/IBMPlexMono-Light.ttf') format('woff2'),
+        url('./assets/fonts/IBM_Plex_Mono/IBMPlexMono-Light.ttf') format('woff');
+    font-weight: "lighter";
+    font-style: normal;
+  }
 
   * {
     margin:0;
